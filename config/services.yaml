@@ -6,6 +6,12 @@
 parameters:
 
 services:
+     # authentication event listener
+    app.security.authentication_event_listener:
+        class: App\Events\EventListener
+        arguments: ["@doctrine","@request_stack"]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onAuthenticationSuccess }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
